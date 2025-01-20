@@ -1,0 +1,58 @@
+﻿<Window x:Class="OverlayImageForWindows.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverlayImageForWindows"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="450" Width="800" Topmost="True" 
+        WindowStyle="None" 
+        AllowsTransparency="True" 
+        Background="Transparent" ResizeMode="NoResize"
+        Loaded="Window_Loaded" MinHeight="150" MinWidth="150">
+    <Grid Name="MainGrid">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="150"></RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="1*"></ColumnDefinition>
+            <ColumnDefinition Width="150"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Image Name="MainImage" Source="/Resourses/Main.jpg" Stretch="Fill" Grid.RowSpan="2" Grid.ColumnSpan="2" AllowDrop="True" 
+               DragEnter="DroppedImage_DragEnter"
+               DragOver="DroppedImage_DragOver"
+               Drop="DroppedImage_Drop"/>
+
+        <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
+            <StackPanel Orientation="Vertical">
+                <Button Name="PickImage" Click="PickImage_Click">Выбрать изображение</Button>
+                <Button Name="Copy" Click="Copy_Click">Скопировать</Button>
+                <Button Name="HistoryCheck" Click="HistoryCheck_Click">Просмотр истории добавлений</Button>
+                <Button Name="Close" Click="Close_Click">Закрыть</Button>
+            </StackPanel>
+        </Border>
+
+        
+
+        <!-- Боковые Thumb для изменения размера -->
+        <Thumb x:Name="LeftThumb" Width="10" Grid.RowSpan="2"  Background="{x:Null}" Opacity="0" IsHitTestVisible="True"
+                       HorizontalAlignment="Left" VerticalAlignment="Stretch" DragDelta="Thumb_DragDelta_Left" Foreground="{x:Null}"/>
+        <Thumb x:Name="RightThumb" Width="10" Background="Transparent" Grid.Column="2" Grid.RowSpan="2"  BorderBrush="Transparent" Opacity="0" IsHitTestVisible="True"
+                       HorizontalAlignment="Right" VerticalAlignment="Stretch" DragDelta="Thumb_DragDelta_Right" Foreground="{x:Null}"/>
+        <Thumb x:Name="TopThumb" Height="10" Background="{x:Null}" Grid.ColumnSpan="2"  BorderBrush="Transparent" Opacity="0" IsHitTestVisible="True"
+                       HorizontalAlignment="Stretch" VerticalAlignment="Top" DragDelta="Thumb_DragDelta_Top" Foreground="{x:Null}"/>
+        <Thumb x:Name="BottomThumb" Height="10" Background="{x:Null}" Grid.ColumnSpan="2" Grid.Row="2"  BorderBrush="Transparent" Opacity="0" IsHitTestVisible="True"
+                       HorizontalAlignment="Stretch" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_Bottom" Foreground="{x:Null}"/>
+
+        <!-- Угловые Thumb для изменения размера -->
+        <Thumb x:Name="TopLeftThumb" Width="10" Height="10" Opacity="0" IsHitTestVisible="True"
+               HorizontalAlignment="Left" VerticalAlignment="Top" DragDelta="Thumb_DragDelta_TopLeft"/>
+        <Thumb x:Name="TopRightThumb" Width="10" Height="10" Background="Transparent" Grid.Column="2" Opacity="0" IsHitTestVisible="True"
+               HorizontalAlignment="Right" VerticalAlignment="Top" DragDelta="Thumb_DragDelta_TopRight"/>
+        <Thumb x:Name="BottomLeftThumb" Width="10" Height="10" Background="Transparent" Grid.Row="2" Opacity="0" IsHitTestVisible="True"
+               HorizontalAlignment="Left" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomLeft"/>
+        <Thumb x:Name="BottomRightThumb" Width="10" Height="10" Background="Transparent" Grid.Column="2" Grid.Row="2" Opacity="0" IsHitTestVisible="True"
+               HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomRight"/>
+    </Grid>
+</Window>
