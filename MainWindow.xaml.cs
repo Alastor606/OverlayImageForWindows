@@ -40,6 +40,15 @@ namespace OverlayImageForWindows
                 }
                 Settings.Visibility = Visibility.Visible;
             };
+            Settings.MouseRightButtonDown += delegate
+            {
+                if (Settings.Visibility == Visibility.Visible)
+                {
+                    Settings.Visibility = Visibility.Hidden;
+                    return;
+                }
+                Settings.Visibility = Visibility.Visible;
+            };
             Loaded += (s, e) =>
             {
                 SetWindowPos(new System.Windows.Interop.WindowInteropHelper(this).Handle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);

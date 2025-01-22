@@ -45,6 +45,7 @@
                HorizontalAlignment="Left" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomLeft"/>
         <Thumb x:Name="BottomRightThumb" Width="10" Height="10" Background="Transparent" Grid.Column="2" Grid.Row="2" Opacity="0" IsHitTestVisible="True"
                HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomRight"/>
+        
         <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
             
             <StackPanel Orientation="Vertical">
