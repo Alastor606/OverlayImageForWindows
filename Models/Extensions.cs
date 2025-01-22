@@ -24,6 +24,7 @@ namespace OverlayImageForWindows.Models
 
         public static void SetImage(this System.Windows.Controls.Image self, string imageName)
         {
+            if (imageName.Contains("Main.jpg")) return;
             BitmapImage bitmap = new BitmapImage(new Uri(FileSystem.ImagePath + imageName));
             self.Source = bitmap;
         }

@@ -8,8 +8,9 @@
         Title="MainWindow" Height="450" Width="800" Topmost="True" 
         WindowStyle="None" 
         AllowsTransparency="True" 
-        Background="Transparent" ResizeMode="NoResize"
-        Loaded="Window_Loaded" MinHeight="150" MinWidth="150">
+        Background="Transparent"
+        Loaded="Window_Loaded" MinHeight="150" MinWidth="150" WindowStartupLocation="CenterScreen" ShowInTaskbar="False">
+    
     <Grid Name="MainGrid">
         <Grid.RowDefinitions>
             <RowDefinition Height="150"></RowDefinition>
@@ -24,16 +25,6 @@
                DragOver="DroppedImage_DragOver"
                Drop="DroppedImage_Drop"/>
 
-        <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
-            <StackPanel Orientation="Vertical">
-                <Button Name="PickImage" Click="PickImage_Click">Выбрать изображение</Button>
-                <Button Name="Copy" Click="Copy_Click">Скопировать</Button>
-                <Button Name="HistoryCheck" Click="HistoryCheck_Click">Просмотр истории добавлений</Button>
-                <Button Name="Close" Click="Close_Click">Закрыть</Button>
-            </StackPanel>
-        </Border>
-
-        
 
         <!-- Боковые Thumb для изменения размера -->
         <Thumb x:Name="LeftThumb" Width="10" Grid.RowSpan="2"  Background="{x:Null}" Opacity="0" IsHitTestVisible="True"
@@ -54,5 +45,15 @@
                HorizontalAlignment="Left" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomLeft"/>
         <Thumb x:Name="BottomRightThumb" Width="10" Height="10" Background="Transparent" Grid.Column="2" Grid.Row="2" Opacity="0" IsHitTestVisible="True"
                HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomRight"/>
+        <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
+            
+            <StackPanel Orientation="Vertical">
+                <Button Name="PickImage" Click="PickImage_Click">Выбрать изображение</Button>
+                <Button Name="Copy" Click="Copy_Click">Скопировать</Button>
+                <Button Name="HistoryCheck" Click="HistoryCheck_Click">Просмотр истории добавлений</Button>
+                <Button Name="ChangeSize" Click="ChangeSize_Click">Изменить размер</Button>
+                <Button Name="Close" Click="Close_Click">Закрыть</Button>
+            </StackPanel>
+        </Border>
     </Grid>
 </Window>

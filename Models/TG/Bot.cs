@@ -43,7 +43,7 @@ namespace OverlayImageForWindows.Models.TG
                 var msg = await client.SendMessage(user, "Сейчас скочаю");
                 var fileId = update.Message.Photo.Last().FileId;
                 var file = await client.GetFile(fileId);
-                using (var saveImageStream = new FileStream(FileSystem.ImagePath + "TgFileName".GetNextName(), FileMode.Create))
+                using (var saveImageStream = new FileStream(FileSystem.ImagePath + "TgFileName.png".GetNextName(), FileMode.Create))
                 {
                     await client.DownloadFile(file.FilePath, saveImageStream);
                 }

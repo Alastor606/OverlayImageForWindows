@@ -2,7 +2,9 @@
 using OverlayImageForWindows.Models.Data;
 using System;
 using System.IO;
+using System.Reflection;
 using System.Windows;
+using System.Windows.Media.Imaging;
 
 namespace OverlayImageForWindows.Models
 {
@@ -16,27 +18,44 @@ namespace OverlayImageForWindows.Models
 
         public static Config config;
         public static UserInfo info;
-        public static void Init()
+        public static void Init(MainWindow w)
         {
             Directory.CreateDirectory(MainPath);
             Directory.CreateDirectory(ImagePath);
             if (!File.Exists(CFG))
             {
-                config = new Config()
+                try
                 {
-                    ImagePath = "Main.jpg",
-                    ScreenSize = new System.Numerics.Vector2(1920, 1080)
-                };
+                    config = new Config()
+                    {
+                        ImagePath = "Main.jpg",
+                        ScreenSize = new System.Numerics.Vector2(1920, 1080)
+                    };
 
-                File.WriteAllText(CFG, JsonConvert.SerializeObject(config));
+                    File.WriteAllText(CFG, JsonConvert.SerializeObject(config));
+                }
+                catch
+                {
+                    MessageBox.Show($"Пожалуйста проверьте файл '{CFG}' на целостность введенных данных");
+                    throw new Exception();
+                }
+
             }
             if (File.Exists(DataFile))
             {
-                info = JsonConvert.DeserializeObject<UserInfo>(File.ReadAllText(DataFile));
-                TG.Bot.Init();
+                try
+                {
+                    info = JsonConvert.DeserializeObject<UserInfo>(File.ReadAllText(DataFile));
+                    TG.Bot.Init();
+                }
+                catch
+                {
+                    MessageBox.Show($"Пожалуйста проверьте файл '{DataFile}' на целостность введенных данных");
+                    throw new Exception();
+                }
+                
             }
             config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(CFG));
-            
         }
 
         public static void SaveImage(string path)

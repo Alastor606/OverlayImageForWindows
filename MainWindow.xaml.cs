@@ -44,7 +44,7 @@ namespace OverlayImageForWindows
             {
                 SetWindowPos(new System.Windows.Interop.WindowInteropHelper(this).Handle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
             };
-            FileSystem.Init();
+            FileSystem.Init(this);
         }
 
         private void DroppedImage_DragEnter(object sender, System.Windows.DragEventArgs e)
@@ -160,8 +160,6 @@ namespace OverlayImageForWindows
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            var path = (MainImage.Source as BitmapImage).BaseUri.AbsolutePath;
-            if (path.Contains("Main.jpg")) FileSystem.SaveImage(path); 
             FileSystem.Save(this,MainImage.Source.ToString().GetFileName());
             base.OnClosing(e);
         }
@@ -190,8 +188,13 @@ namespace OverlayImageForWindows
             using (Image image = Image.FromFile((MainImage.Source as BitmapImage).UriSource?.AbsolutePath))
             {
                 System.Windows.Forms.Clipboard.SetImage(image);
-                System.Windows.MessageBox.Show("Изображение скопировано");
             }
+        }
+
+        private void ChangeSize_Click(object sender, RoutedEventArgs e)
+        {
+            if (this.WindowState == WindowState.Normal) this.WindowState = WindowState.Maximized;
+            else this.WindowState = WindowState.Normal;
         }
     }
 }
