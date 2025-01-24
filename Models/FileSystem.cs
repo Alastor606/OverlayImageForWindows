@@ -2,9 +2,7 @@
 using OverlayImageForWindows.Models.Data;
 using System;
 using System.IO;
-using System.Reflection;
 using System.Windows;
-using System.Windows.Media.Imaging;
 
 namespace OverlayImageForWindows.Models
 {
@@ -14,7 +12,9 @@ namespace OverlayImageForWindows.Models
             CFG = MainPath + "\\data.cfg",
             ImagePath = MainPath + "Images\\",
             LogPath = MainPath + "Logs.txt",
-            DataFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ImagingConfig.json";
+            DataFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ImagingConfig.json",
+            VideoPath = MainPath + "Videos\\",
+            ThumnailPath = VideoPath + "Thumbnails\\";
 
         public static Config config;
         public static UserInfo info;
@@ -22,6 +22,8 @@ namespace OverlayImageForWindows.Models
         {
             Directory.CreateDirectory(MainPath);
             Directory.CreateDirectory(ImagePath);
+            Directory.CreateDirectory(VideoPath);
+            Directory.CreateDirectory(ThumnailPath);
             if (!File.Exists(CFG))
             {
                 try
@@ -31,7 +33,6 @@ namespace OverlayImageForWindows.Models
                         ImagePath = "Main.jpg",
                         ScreenSize = new System.Numerics.Vector2(1920, 1080)
                     };
-
                     File.WriteAllText(CFG, JsonConvert.SerializeObject(config));
                 }
                 catch
@@ -68,10 +69,18 @@ namespace OverlayImageForWindows.Models
             File.WriteAllBytes(ImagePath + name, data);
         }
 
-        public static void Save(MainWindow w, string path)
+        public static string SaveVideo(string path)
+        {
+            File.WriteAllBytes(VideoPath + path.GetFileName2(), File.ReadAllBytes(path));
+            return VideoPath + path.GetFileName2();
+        }
+
+        public static void Save(MainWindow w)
         {
             config.ScreenSize = new System.Numerics.Vector2((float)w.Width, (float)w.Height);
-            config.ImagePath = path;
+            config.IsVideo = w.MainImage.Visibility == Visibility.Visible ? false : true;
+            if (!config.IsVideo) config.ImagePath = w.MainImage.Source.ToString().GetFileName();
+            else config.ImagePath = w.MainVideo.Source.ToString().GetFileName();
             File.WriteAllText(CFG, JsonConvert.SerializeObject(config));
         }
     }

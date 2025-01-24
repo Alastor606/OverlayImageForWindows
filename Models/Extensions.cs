@@ -1,11 +1,8 @@
 ﻿using OverlayImageForWindows.Models.Data;
 using System;
 using System.Collections.Generic;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Windows.Documents;
 using System.Windows.Media.Imaging;
 
 namespace OverlayImageForWindows.Models
@@ -29,16 +26,14 @@ namespace OverlayImageForWindows.Models
             self.Source = bitmap;
         }
 
-        public static string GetNextName(this string name)
+        public static string GetNextName(this string name, string directoryPath)
         {
-            var newName = new StringBuilder();
             var id = 0;
-            newName.Append(name);
-            while (File.Exists(FileSystem.ImagePath +id+ newName))
+            while (File.Exists(directoryPath + id+ name))
             {
                 id++;
             }
-            return id + newName.ToString();
+            return id + name;
         }
 
         public static List<ImageCast> ToImageCast(this FileInfo[] fileinfo)
@@ -48,6 +43,18 @@ namespace OverlayImageForWindows.Models
             {
                 if (i + 1 <= fileinfo.Length) result.Add(new ImageCast(fileinfo[i].FullName, fileinfo[i + 1].FullName));
                 else result.Add(new ImageCast(fileinfo[i].FullName, "empty"));
+            }
+            return result;
+        }
+
+        public static List<OverlayVideo> ToVideos(this FileInfo[] fileinfo)
+        {
+            var result = new List<OverlayVideo>();
+            foreach (var item in fileinfo)
+            {
+                var vid = new OverlayVideo(item.FullName);
+                vid.CreateThumbNail();
+                result.Add(vid);
             }
             return result;
         }

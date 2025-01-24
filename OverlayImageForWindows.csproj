@@ -38,6 +38,9 @@
     <Reference Include="IndexRange, Version=1.0.3.0, Culture=neutral, PublicKeyToken=35e6a3c4212514c6, processorArchitecture=MSIL">
       <HintPath>packages\IndexRange.1.0.3\lib\net47\IndexRange.dll</HintPath>
     </Reference>
+    <Reference Include="MediaToolkit, Version=1.1.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\MediaToolkit.1.1.0.1\lib\net40\MediaToolkit.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=8.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.8.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
@@ -118,10 +121,14 @@
     </ApplicationDefinition>
     <Compile Include="Models\Data\ImageCast.cs" />
     <Compile Include="Models\Data\Log.cs" />
+    <Compile Include="Models\Data\OverlayVideo.cs" />
     <Compile Include="Models\Data\UserInfo.cs" />
     <Compile Include="Models\LogSystem.cs" />
     <Compile Include="Views\GetImageWindow.xaml.cs">
       <DependentUpon>GetImageWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\GetVideoWindow.xaml.cs">
+      <DependentUpon>GetVideoWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -136,6 +143,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\GetImageWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\GetVideoWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

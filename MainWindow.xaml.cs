@@ -23,6 +23,8 @@ namespace OverlayImageForWindows
         private static readonly IntPtr HWND_TOPMOST = new IntPtr(-1);
         private const uint SWP_NOSIZE = 0x0001;
         private const uint SWP_NOMOVE = 0x0002;
+
+        private bool IsVideoOpened = false, IsImageOpened = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -53,6 +55,20 @@ namespace OverlayImageForWindows
             {
                 SetWindowPos(new System.Windows.Interop.WindowInteropHelper(this).Handle, HWND_TOPMOST, 0, 0, 0, 0, SWP_NOMOVE | SWP_NOSIZE);
             };
+
+            MainVideo.MouseLeftButtonDown += delegate
+            {
+                this.DragMove();
+            };
+            MainVideo.MouseRightButtonDown += delegate
+            {
+                if (Settings.Visibility == Visibility.Visible)
+                {
+                    Settings.Visibility = Visibility.Hidden;
+                    return;
+                }
+                Settings.Visibility = Visibility.Visible;
+            };
             FileSystem.Init(this);
         }
 
@@ -79,9 +95,22 @@ namespace OverlayImageForWindows
                 string[] files = (string[])e.Data.GetData(System.Windows.DataFormats.FileDrop);
                 if (files.Length > 0)
                 {
-                    BitmapImage bitmap = new BitmapImage(new Uri(files[0]));
-                    MainImage.Source = bitmap;
-                    FileSystem.SaveImage(files[0]);
+                    var path = files[0];
+                    if (path.Contains(".mp4"))
+                    {
+                        MainVideo.Visibility = Visibility.Visible;
+                        MainImage.Visibility = Visibility.Hidden;
+                        MainVideo.Source = new Uri(FileSystem.SaveVideo(path));
+                        MainVideo.Play();
+                    }
+                    else
+                    {
+                        MainImage.Visibility = Visibility.Visible;
+                        BitmapImage bitmap = new BitmapImage(new Uri(path));
+                        MainImage.Source = bitmap;
+                        FileSystem.SaveImage(files[0]);
+                        MainVideo.Visibility = Visibility.Hidden;
+                    }
                 }
             }
         }
@@ -103,11 +132,19 @@ namespace OverlayImageForWindows
             {
                 this.WindowState = WindowState.Maximized;
             }
+            this.WindowState = WindowState.Normal;
             this.Width = FileSystem.config.ScreenSize.X;
             this.Height = FileSystem.config.ScreenSize.Y;
-            if (FileSystem.config.ImagePath != string.Empty)
+            if (FileSystem.config.ImagePath != string.Empty && !FileSystem.config.IsVideo)
             {
                 MainImage.SetImage(FileSystem.config.ImagePath);
+            }
+            else
+            {
+                MainImage.Visibility = Visibility.Hidden;
+                MainVideo.Visibility = Visibility.Visible;
+                MainVideo.Source = new Uri(FileSystem.VideoPath + FileSystem.config.ImagePath);
+                MainVideo.Play();
             }
         }
 
@@ -169,16 +206,9 @@ namespace OverlayImageForWindows
 
         protected override void OnClosing(CancelEventArgs e)
         {
-            FileSystem.Save(this,MainImage.Source.ToString().GetFileName());
+            FileSystem.Save(this);
             base.OnClosing(e);
-        }
-
-        private void PickImage_Click(object sender, RoutedEventArgs e)
-        {
-            var window = new GetImageWindow();
-            window.Show();
-            window.OnPickImage += (s) => MainImage.SetImage(s.GetFileName2());
-        }
+        } 
 
         private void HistoryCheck_Click(object sender, RoutedEventArgs e)
         {
@@ -204,6 +234,48 @@ namespace OverlayImageForWindows
         {
             if (this.WindowState == WindowState.Normal) this.WindowState = WindowState.Maximized;
             else this.WindowState = WindowState.Normal;
+        }
+
+        private void PickVideo_Click(object sender, RoutedEventArgs e)
+        {
+            if (IsVideoOpened) return;
+            IsVideoOpened = true;
+            var window = new GetVideoWindow();
+            window.Show();
+            window.Closed += delegate
+            {
+                IsVideoOpened = false;
+            };
+            window.OnPickVideo += (s) =>
+            {
+                MainVideo.Visibility = Visibility.Visible;
+                MainImage.Visibility = Visibility.Hidden;
+                MainVideo.Source = new Uri(s);
+            };
+        }
+
+        private void PickImage_Click(object sender, RoutedEventArgs e)
+        {
+            if(IsImageOpened)return;
+            IsImageOpened = true;
+            var window = new GetImageWindow();
+            window.Show();
+            window.Closed += delegate
+            {
+                IsImageOpened = false;
+            };
+            window.OnPickImage += (s) =>
+            {
+                MainImage.Visibility = Visibility.Visible;
+                MainVideo.Visibility = Visibility.Hidden;
+                MainImage.SetImage(s.GetFileName2());
+            };
+        }
+
+        private void MediaEnded(object sender, RoutedEventArgs e)
+        {
+            MainVideo.Position = TimeSpan.Zero;
+            MainVideo.Play();
         }
     }
 }

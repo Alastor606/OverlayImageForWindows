@@ -1,6 +1,7 @@
 ﻿using OverlayImageForWindows.Models.Data;
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -33,32 +34,47 @@ namespace OverlayImageForWindows.Models.TG
             var messge = update.Message.Text;
             var user = update.Message.Chat.Id;
             var type = update.Message.Type;
-            if (type != Telegram.Bot.Types.Enums.MessageType.Text && type != Telegram.Bot.Types.Enums.MessageType.Photo)
+            if (type != Telegram.Bot.Types.Enums.MessageType.Text && type != Telegram.Bot.Types.Enums.MessageType.Photo && type != Telegram.Bot.Types.Enums.MessageType.Video)
             {
                 await client.SendMessage(user, "что-то пошло не так");
                 return;
             }
-            if(type == Telegram.Bot.Types.Enums.MessageType.Photo)
+            if (type == Telegram.Bot.Types.Enums.MessageType.Photo)
             {
                 var msg = await client.SendMessage(user, "Сейчас скочаю");
                 var fileId = update.Message.Photo.Last().FileId;
                 var file = await client.GetFile(fileId);
-                using (var saveImageStream = new FileStream(FileSystem.ImagePath + "TgFileName.png".GetNextName(), FileMode.Create))
+                using (var saveImageStream = new FileStream(FileSystem.ImagePath + "TgFileName.png".GetNextName(FileSystem.ImagePath), FileMode.Create))
                 {
                     await client.DownloadFile(file.FilePath, saveImageStream);
                 }
                 var msg1 = await client.SendMessage(user, "Изображение скачано");
-                
-                
+
+
                 var log = $"Пользователь {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user}). Добавил изображение!";
                 new Log(log);
-                if (user != FileSystem.info.TelegramID) await client.SendMessage(2084130745, log);
+                if (user != FileSystem.info.TelegramID) await client.SendMessage(FileSystem.info.TelegramID, log);
 
                 await client.DeleteMessage(user, msg.Id);
                 await Task.Delay(3000);
                 await client.DeleteMessage(user, msg1.Id);
             }
-            else
+            else if (type == Telegram.Bot.Types.Enums.MessageType.Video)
+            {
+                var msg = await client.SendMessage(user, "Сейчас скочаю");
+                var fileId = update.Message.Video.FileId;
+                var file = await client.GetFile(fileId);
+                using (var saveImageStream = new FileStream(FileSystem.VideoPath + "TgFileName.mp4".GetNextName(FileSystem.VideoPath), FileMode.Create))
+                {
+                    await client.DownloadFile(file.FilePath, saveImageStream);
+                }
+
+                var log = $"Пользователь {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user}). Добавил видео!";
+                new Log(log);
+                if (user != FileSystem.info.TelegramID) await client.SendMessage(FileSystem.info.TelegramID, log);
+                await client.DeleteMessage(user, msg.Id);
+            }
+            else if(type == Telegram.Bot.Types.Enums.MessageType.Text)
             {
                 if (messge == "/start")
                 {
@@ -71,6 +87,11 @@ namespace OverlayImageForWindows.Models.TG
                     new Log($"Пользователь {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user}) написал {messge}");
                 }
             }
+            else
+            {
+                new Log("Неподдерживаемый тип сообщения");
+            }
+            
         }
     }
 }
