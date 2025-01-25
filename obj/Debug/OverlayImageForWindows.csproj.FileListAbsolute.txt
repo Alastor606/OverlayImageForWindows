@@ -51,8 +51,6 @@ C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\OverlayImageForWi
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\OverlayImageForWindows.pdb
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\Newtonsoft.Json.dll
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\Newtonsoft.Json.xml
-C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetImageWindow.g.cs
-C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetImageWindow.baml
-C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetVideoWindow.g.cs
-C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetVideoWindow.baml
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\MediaToolkit.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetMediaWindow.g.cs
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetMediaWindow.baml

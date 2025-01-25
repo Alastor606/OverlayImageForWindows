@@ -36,7 +36,8 @@ namespace OverlayImageForWindows.Models.TG
             var type = update.Message.Type;
             if (type != Telegram.Bot.Types.Enums.MessageType.Text && type != Telegram.Bot.Types.Enums.MessageType.Photo && type != Telegram.Bot.Types.Enums.MessageType.Video)
             {
-                await client.SendMessage(user, "что-то пошло не так");
+                await client.SendMessage(user, "Неподдерживаемый формат сообщения!");
+                new Log("Неподдерживаемый тип сообщения");
                 return;
             }
             if (type == Telegram.Bot.Types.Enums.MessageType.Photo)
@@ -87,10 +88,8 @@ namespace OverlayImageForWindows.Models.TG
                     new Log($"Пользователь {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user}) написал {messge}");
                 }
             }
-            else
-            {
-                new Log("Неподдерживаемый тип сообщения");
-            }
+            else new Log("Неподдерживаемый тип сообщения");
+            
             
         }
     }

@@ -7,37 +7,37 @@ namespace OverlayImageForWindows.Models.Data
 {
     internal class OverlayVideo
     {
-        public string FullPath { get; set; }
+        public string FullName { get; set; }
         public string ThumNailPath { get; set; }
         
-        public OverlayVideo(string fullPath, string thumbNail)
+        public OverlayVideo(string fullName, string thumbNail)
         {
-            FullPath = fullPath;
+            FullName = fullName;
             ThumNailPath = thumbNail;
         }
 
-        public OverlayVideo(string fullPath)
+        public OverlayVideo(string fullName)
         {
-            FullPath = fullPath;
-
+            FullName = fullName;
         }
 
         public void CreateThumbNail()
         {
-            string thumbnailPath = Path.Combine(FileSystem.ThumnailPath, $"{FullPath.GetFileName2()}-thumbnail.png");
+            string thumbnailPath = Path.Combine(FileSystem.ThumnailPath, $"{FullName.GetFileName2()}-thumbnail.png");
             if (File.Exists(thumbnailPath))
             {
                 ThumNailPath = thumbnailPath;
                 return;
             }
 
-            var inputFile = new MediaFile { Filename = FullPath };
+            var inputFile = new MediaFile { Filename = FullName };
             var outputFile = new MediaFile { Filename = thumbnailPath };
 
             using (var engine = new Engine())
             {
                 engine.GetThumbnail(inputFile, outputFile, new MediaToolkit.Options.ConversionOptions { Seek = TimeSpan.FromSeconds(1) });
             }
+            ThumNailPath = $"{FullName.GetFileName2()}-thumbnail.png";
         }
     }
 }

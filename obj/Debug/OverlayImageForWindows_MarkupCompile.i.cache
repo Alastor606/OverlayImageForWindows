@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\App.xaml
-31592707285
+2-68368811
 
-17-2078708904
+16-866421996
 381002839883
-MainWindow.xaml;Views\GetImageWindow.xaml;Views\GetVideoWindow.xaml;
+MainWindow.xaml;Views\GetMediaWindow.xaml;
 
-False
+True
 

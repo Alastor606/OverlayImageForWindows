@@ -124,11 +124,8 @@
     <Compile Include="Models\Data\OverlayVideo.cs" />
     <Compile Include="Models\Data\UserInfo.cs" />
     <Compile Include="Models\LogSystem.cs" />
-    <Compile Include="Views\GetImageWindow.xaml.cs">
-      <DependentUpon>GetImageWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\GetVideoWindow.xaml.cs">
-      <DependentUpon>GetVideoWindow.xaml</DependentUpon>
+    <Compile Include="Views\GetMediaWindow.xaml.cs">
+      <DependentUpon>GetMediaWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -142,11 +139,7 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\GetImageWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\GetVideoWindow.xaml">
+    <Page Include="Views\GetMediaWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

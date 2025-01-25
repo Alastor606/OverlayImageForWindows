@@ -32,7 +32,8 @@
                 DragOver="DroppedImage_DragOver"
                 Drop="DroppedImage_Drop"
                 MediaEnded="MediaEnded"
-                LoadedBehavior="Manual">
+                LoadedBehavior="Manual"
+                UnloadedBehavior="Play">
         </MediaElement>
 
 
@@ -59,8 +60,7 @@
         <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
             
             <StackPanel Orientation="Vertical">
-                <Button Name="PickImage" Click="PickImage_Click">Выбрать изображение</Button>
-                <Button Name="PickVideo" Click="PickVideo_Click">Выбрать видео</Button>
+                <Button Name="PickMedia" Click="PickMedia_Click">Выбрать медиа элемент</Button>
                 <Button Name="Copy" Click="Copy_Click">Скопировать</Button>
                 <Button Name="HistoryCheck" Click="HistoryCheck_Click">Просмотр истории добавлений</Button>
                 <Button Name="ChangeSize" Click="ChangeSize_Click">Изменить размер</Button>

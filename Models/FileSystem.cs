@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using OverlayImageForWindows.Models.Data;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Windows;
 
@@ -82,6 +83,23 @@ namespace OverlayImageForWindows.Models
             if (!config.IsVideo) config.ImagePath = w.MainImage.Source.ToString().GetFileName();
             else config.ImagePath = w.MainVideo.Source.ToString().GetFileName();
             File.WriteAllText(CFG, JsonConvert.SerializeObject(config));
+        }
+
+        public static List<FileInfo> GetImages()
+        {
+            var result = new List<FileInfo>();
+            foreach(var item in new DirectoryInfo(ImagePath).GetFiles())
+            {
+                result.Add(item);
+            }
+            return result;
+        }
+
+        public static OverlayVideo CreateVideo(string videoPath)
+        {
+            var video = new OverlayVideo(videoPath);
+            video.CreateThumbNail();
+            return video;
         }
     }
 }

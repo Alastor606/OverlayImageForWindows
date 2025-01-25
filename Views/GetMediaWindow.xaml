@@ -1,0 +1,23 @@
+﻿<Window x:Class="OverlayImageForWindows.Views.GetMediaWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OverlayImageForWindows.Views"
+        mc:Ignorable="d"
+        Title="GetMediaWindow" Height="450" Width="800" ResizeMode="NoResize">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal">
+            <Button Name="Images" Width="150" Height="25" Margin="150,0" Click="Images_Click" IsEnabled="False">Изображения</Button>
+            <Button Name="Videos" Width="150" Height="25" Margin="50,0" Click="Videos_Click">Видео</Button>
+        </StackPanel>
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" >
+            <UniformGrid Rows="2" Name="MainGrid">
+            </UniformGrid>
+        </ScrollViewer>
+    </Grid>
+</Window>
