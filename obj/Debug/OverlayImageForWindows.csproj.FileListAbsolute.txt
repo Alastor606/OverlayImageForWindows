@@ -54,3 +54,6 @@ C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\Newtonsoft.Json.x
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\MediaToolkit.dll
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetMediaWindow.g.cs
 C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\GetMediaWindow.baml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\HtmlAgilityPack.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\HtmlAgilityPack.pdb
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\HtmlAgilityPack.xml

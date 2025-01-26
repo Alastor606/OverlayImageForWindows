@@ -4,11 +4,11 @@ using OverlayImageForWindows.Views;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Drawing;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
 using System.Windows.Forms;
+using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
 
@@ -25,6 +25,7 @@ namespace OverlayImageForWindows
         private const uint SWP_NOMOVE = 0x0002;
 
         private bool isMediaOpened = false;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -70,6 +71,7 @@ namespace OverlayImageForWindows
                 Settings.Visibility = Visibility.Visible;
             };
             MainVideo.MediaFailed += MediaElement_MediaFailed;
+            RenderOptions.SetBitmapScalingMode(MainVideo, BitmapScalingMode.HighQuality);
             FileSystem.Init(this);
         }
 
@@ -156,8 +158,8 @@ namespace OverlayImageForWindows
 
         private void Close_Click(object sender, RoutedEventArgs e) =>
             this.Close();
-        
 
+#region thumbnails
         // Угловые Thumb
         private void Thumb_DragDelta_TopLeft(object sender, DragDeltaEventArgs e)
         {
@@ -209,6 +211,7 @@ namespace OverlayImageForWindows
         {
             this.Height = Math.Max(this.Height + e.VerticalChange, 100);
         }
+        #endregion
 
         protected override void OnClosing(CancelEventArgs e)
         {
@@ -230,9 +233,24 @@ namespace OverlayImageForWindows
 
         private void Copy_Click(object sender, RoutedEventArgs e)
         {
-            using (System.Drawing.Image image = System.Drawing.Image.FromFile((MainImage.Source as BitmapImage).UriSource?.AbsolutePath))
+            if(MainImage.Visibility == Visibility.Visible)
             {
-                System.Windows.Forms.Clipboard.SetImage(image);
+                try
+                {
+                    using (System.Drawing.Image image = System.Drawing.Image.FromFile((MainImage.Source as BitmapImage).UriSource?.AbsolutePath))
+                    {
+                        System.Windows.Forms.Clipboard.SetImage(image);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    new Log("При попытке копирования произошла ошибка, возможно название файла написанно на русском, исправьте это.");
+                }
+                
+            }
+            else
+            {
+                System.Windows.Forms.Clipboard.SetText(MainVideo.Source.OriginalString);
             }
         }
 
@@ -261,12 +279,14 @@ namespace OverlayImageForWindows
                     MainImage.Visibility = Visibility.Hidden;
                     MainVideo.Visibility = Visibility.Visible;
                     MainVideo.Source = new Uri(FileSystem.VideoPath + fileName + ".mp4");
+                    MainVideo.Play();
                 }
                 else
                 {
                     MainImage.Visibility = Visibility.Visible;
                     MainVideo.Visibility = Visibility.Hidden;
-                    MainImage.SetImage(fileName + ".png");
+                    var name = fileName.GetImageType(FileSystem.ImagePath);
+                    MainImage.SetImage(name.GetFileName2());
                 }
             };
         }

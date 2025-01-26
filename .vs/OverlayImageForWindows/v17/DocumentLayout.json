@@ -3,28 +3,12 @@
   "WorkspaceRootPath": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
-      "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:mainwindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
-      "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:mainwindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\models\\extensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:models\\extensions.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\views\\getmediawindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|",
       "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:views\\getmediawindow.xaml.cs||{8B382828-6202-11D1-8870-0000F87579D2}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\views\\getmediawindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}",
       "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:views\\getmediawindow.xaml||{F11ACC28-31D1-4C80-A34B-F4E09D3D753C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|c:\\users\\main\\desktop\\scripts\\overlayimageforwindows\\models\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A70577D8-0B5C-48D9-ACC3-44C2BA8F3B9C}|OverlayImageForWindows.csproj|solutionrelative:models\\filesystem.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
   "DocumentGroupContainers": [
@@ -34,7 +18,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Bookmark",
@@ -42,78 +26,27 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "MainWindow.xaml",
-              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\MainWindow.xaml",
-              "RelativeDocumentMoniker": "MainWindow.xaml",
-              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\MainWindow.xaml",
-              "RelativeToolTip": "MainWindow.xaml",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-25T21:00:29.702Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "Extensions.cs",
-              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Models\\Extensions.cs",
-              "RelativeDocumentMoniker": "Models\\Extensions.cs",
-              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Models\\Extensions.cs",
-              "RelativeToolTip": "Models\\Extensions.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAJAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T20:57:10.758Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "FileSystem.cs",
-              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Models\\FileSystem.cs",
-              "RelativeDocumentMoniker": "Models\\FileSystem.cs",
-              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Models\\FileSystem.cs",
-              "RelativeToolTip": "Models\\FileSystem.cs",
-              "ViewState": "AgIAAEAAAAAAAAAAAAAowGEAAAAuAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T20:29:12.422Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "GetMediaWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml.cs",
-              "RelativeDocumentMoniker": "Views\\GetMediaWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml.cs",
-              "RelativeToolTip": "Views\\GetMediaWindow.xaml.cs",
-              "ViewState": "AgIAAB0AAAAAAAAAAAAAADYAAAAUAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-25T20:28:08.206Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 1,
               "Title": "GetMediaWindow.xaml",
               "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml",
               "RelativeDocumentMoniker": "Views\\GetMediaWindow.xaml",
               "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml",
               "RelativeToolTip": "Views\\GetMediaWindow.xaml",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003549|",
-              "WhenOpened": "2025-01-25T20:10:20.986Z",
+              "WhenOpened": "2025-01-26T00:47:34.546Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "MainWindow.xaml.cs",
-              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\MainWindow.xaml.cs",
-              "RelativeDocumentMoniker": "MainWindow.xaml.cs",
-              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\MainWindow.xaml.cs",
-              "RelativeToolTip": "MainWindow.xaml.cs",
-              "ViewState": "AgIAADMAAAAAAAAAAAAAAE0AAABiAAAAAAAAAA==",
+              "DocumentIndex": 0,
+              "Title": "GetMediaWindow.xaml.cs",
+              "DocumentMoniker": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml.cs",
+              "RelativeDocumentMoniker": "Views\\GetMediaWindow.xaml.cs",
+              "ToolTip": "C:\\Users\\Main\\Desktop\\Scripts\\OverlayImageForWindows\\Views\\GetMediaWindow.xaml.cs",
+              "RelativeToolTip": "Views\\GetMediaWindow.xaml.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAATAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-01-20T14:15:51.113Z",
+              "WhenOpened": "2025-01-25T22:46:42.743Z",
               "EditorCaption": ""
             }
           ]

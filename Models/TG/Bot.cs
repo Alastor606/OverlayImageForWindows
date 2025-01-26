@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics.Eventing.Reader;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,7 +15,7 @@ using Telegram.Bot.Types;
 
 namespace OverlayImageForWindows.Models.TG
 {
-    internal static class Bot
+    public static class Bot
     {
         static TelegramBotClient client;
         public static void Init()
@@ -69,11 +70,15 @@ namespace OverlayImageForWindows.Models.TG
                 {
                     await client.DownloadFile(file.FilePath, saveImageStream);
                 }
+                var msg1 = await client.SendMessage(user, "Видео скачано");
 
                 var log = $"Пользователь {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user}). Добавил видео!";
                 new Log(log);
                 if (user != FileSystem.info.TelegramID) await client.SendMessage(FileSystem.info.TelegramID, log);
+
                 await client.DeleteMessage(user, msg.Id);
+                await Task.Delay(3000);
+                await client.DeleteMessage(user, msg1.Id);
             }
             else if(type == Telegram.Bot.Types.Enums.MessageType.Text)
             {
@@ -82,6 +87,32 @@ namespace OverlayImageForWindows.Models.TG
                     await client.SendMessage(user, "С добрым утрам");
                     new Log($"Новый пользователь -  {update.Message.Chat.FirstName} {update.Message.Chat.LastName}({user})");
                 }
+                else if (messge.Contains("pin"))
+                {
+                    var msg = await client.SendMessage(user, "Сейчас скочаю");
+                    try
+                    {
+                        var videoUrl = await TelegramVideoDownloader.GetVideoUrlFromPinterest(messge);
+                        MessageBox.Show(videoUrl);
+                        if (!string.IsNullOrEmpty(videoUrl))
+                        {
+                            await TelegramVideoDownloader.DownloadVideo(videoUrl);
+                            new Log("Попытка скачивания видео безуспешна с пинтерест");
+                        }
+                        else
+                        {
+                            new Log("Попытка скачивания видео безуспешна");
+                        }
+                        var msg1 = await client.SendMessage(user, "Видео скачано");
+                        await client.DeleteMessage(user, msg.Id);
+                        await Task.Delay(3000);
+                        await client.DeleteMessage(user, msg1.Id);
+                    }
+                    catch (Exception ex)
+                    {
+                        Console.WriteLine($"Ошибка: {ex.Message}");
+                    }
+                }
                 else
                 {
                     await client.SendMessage(user, "Каки");
@@ -89,8 +120,6 @@ namespace OverlayImageForWindows.Models.TG
                 }
             }
             else new Log("Неподдерживаемый тип сообщения");
-            
-            
         }
     }
 }

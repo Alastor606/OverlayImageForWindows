@@ -28,8 +28,15 @@ namespace OverlayImageForWindows.Models
         public static void SetImage(this System.Windows.Controls.Image self, string imageName)
         {
             if (imageName.Contains("Main.jpg")) return;
-            BitmapImage bitmap = new BitmapImage(new Uri(FileSystem.ImagePath + imageName));
-            self.Source = bitmap;
+            try
+            {
+                BitmapImage bitmap = new BitmapImage(new Uri(FileSystem.ImagePath + imageName));
+                self.Source = bitmap;
+            }
+            catch (Exception ex)
+            {
+                new Log("При получении изображения получена ошибка - " + ex.Message);
+            }
         }
 
         public static string GetNextName(this string name, string directoryPath)
@@ -63,6 +70,14 @@ namespace OverlayImageForWindows.Models
                 result.Add(vid);
             }
             return result;
+        }
+
+        public static string GetImageType(this string fileName, string directoryPath)
+        {
+            var info = new DirectoryInfo(directoryPath).GetFiles();
+            var img = info.FirstOrDefault(x => x.Name.Contains(fileName));
+            if (img == default) return string.Empty;
+            return img.FullName;
         }
     }
 }

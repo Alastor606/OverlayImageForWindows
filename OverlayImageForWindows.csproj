@@ -35,6 +35,9 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="HtmlAgilityPack, Version=1.11.72.0, Culture=neutral, PublicKeyToken=bd319b19eaf3b43a, processorArchitecture=MSIL">
+      <HintPath>packages\HtmlAgilityPack.1.11.72\lib\Net45\HtmlAgilityPack.dll</HintPath>
+    </Reference>
     <Reference Include="IndexRange, Version=1.0.3.0, Culture=neutral, PublicKeyToken=35e6a3c4212514c6, processorArchitecture=MSIL">
       <HintPath>packages\IndexRange.1.0.3\lib\net47\IndexRange.dll</HintPath>
     </Reference>
@@ -124,6 +127,7 @@
     <Compile Include="Models\Data\OverlayVideo.cs" />
     <Compile Include="Models\Data\UserInfo.cs" />
     <Compile Include="Models\LogSystem.cs" />
+    <Compile Include="Models\TG\TelegramVideoDownloader.cs" />
     <Compile Include="Views\GetMediaWindow.xaml.cs">
       <DependentUpon>GetMediaWindow.xaml</DependentUpon>
     </Compile>

@@ -15,8 +15,14 @@
             <Button Name="Images" Width="150" Height="25" Margin="150,0" Click="Images_Click" IsEnabled="False">Изображения</Button>
             <Button Name="Videos" Width="150" Height="25" Margin="50,0" Click="Videos_Click">Видео</Button>
         </StackPanel>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" >
-            <UniformGrid Rows="2" Name="MainGrid">
+        
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Name="ImageSW">
+            <UniformGrid Rows="2" Name="ImageGrid">
+            </UniformGrid>
+        </ScrollViewer>
+
+        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" Grid.Row="1" Name="VideoSW">
+            <UniformGrid Rows="2" Name="VideoGrid">
             </UniformGrid>
         </ScrollViewer>
     </Grid>

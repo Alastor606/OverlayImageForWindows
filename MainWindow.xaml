@@ -26,7 +26,7 @@
                Drop="DroppedImage_Drop"/>
 
         <MediaElement Name="MainVideo" Stretch="Fill" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Hidden"
-                Volume="0" 
+                Volume="0"
                 AllowDrop="True" 
                 DragEnter="DroppedImage_DragEnter"
                 DragOver="DroppedImage_DragOver"
