@@ -23,7 +23,7 @@
         <Image Name="MainImage" Source="/Resourses/Main.jpg" Stretch="Fill" Grid.RowSpan="2" Grid.ColumnSpan="2" AllowDrop="True" 
                DragEnter="DroppedImage_DragEnter"
                DragOver="DroppedImage_DragOver"
-               Drop="DroppedImage_Drop"/>
+               Drop="DroppedImage_Drop" OpacityMask="Black"/>
 
         <MediaElement Name="MainVideo" Stretch="Fill" Grid.RowSpan="2" Grid.ColumnSpan="2" Visibility="Hidden"
                 Volume="0"
@@ -56,14 +56,13 @@
                HorizontalAlignment="Left" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomLeft"/>
         <Thumb x:Name="BottomRightThumb" Width="20" Height="20" Background="Transparent" Grid.Column="2" Grid.Row="2" Opacity="0" IsHitTestVisible="True"
                HorizontalAlignment="Right" VerticalAlignment="Bottom" DragDelta="Thumb_DragDelta_BottomRight"/>
-        
+
         <Border Background="#FFC7C7C7" Width="150" Height="150" Name="Settings" Visibility="Hidden" Grid.Column="2">
-            
             <StackPanel Orientation="Vertical">
-                <Button Name="PickMedia" Click="PickMedia_Click">Выбрать медиа элемент</Button>
+                <Button Name="PickMedia" Click="PickMedia_Click">Выбрать файл</Button>
                 <Button Name="Copy" Click="Copy_Click">Скопировать</Button>
-                <Button Name="HistoryCheck" Click="HistoryCheck_Click">Просмотр истории добавлений</Button>
                 <Button Name="ChangeSize" Click="ChangeSize_Click">Изменить размер</Button>
+                <Button Name="MegaSettings" Click="MegaSettings_Click">Расширенные настройки</Button>
                 <Button Name="Close" Click="Close_Click">Закрыть</Button>
             </StackPanel>
         </Border>

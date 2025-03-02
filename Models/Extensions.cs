@@ -22,7 +22,7 @@ namespace OverlayImageForWindows.Models
         public static void SetVideoThumb(this System.Windows.Controls.Image self, string thumbName)
         {
             BitmapImage bitmap = new BitmapImage(new Uri(thumbName));
-            self.Source = bitmap;
+            self.Source = bitmap; 
         }
 
         public static void SetImage(this System.Windows.Controls.Image self, string imageName)

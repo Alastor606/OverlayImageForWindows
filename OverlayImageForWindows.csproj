@@ -127,9 +127,12 @@
     <Compile Include="Models\Data\OverlayVideo.cs" />
     <Compile Include="Models\Data\UserInfo.cs" />
     <Compile Include="Models\LogSystem.cs" />
-    <Compile Include="Models\TG\TelegramVideoDownloader.cs" />
+    <Compile Include="Models\TG\TelegramDownloader.cs" />
     <Compile Include="Views\GetMediaWindow.xaml.cs">
       <DependentUpon>GetMediaWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\SettingsWindow.xaml.cs">
+      <DependentUpon>SettingsWindow.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -144,6 +147,10 @@
       <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\GetMediaWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\SettingsWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

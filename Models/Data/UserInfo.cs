@@ -4,5 +4,6 @@
     {
         public long TelegramID;
         public string Token;
+        public bool AcceptTPUFiles = false;
     }
 }

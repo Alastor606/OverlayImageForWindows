@@ -4,6 +4,8 @@ using OverlayImageForWindows.Views;
 using System;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
 using System.Windows.Controls.Primitives;
@@ -24,7 +26,8 @@ namespace OverlayImageForWindows
         private const uint SWP_NOSIZE = 0x0001;
         private const uint SWP_NOMOVE = 0x0002;
 
-        private bool isMediaOpened = false;
+        private bool isMediaOpened = false, isSettingsOpened = false;
+        public bool isVideo { get; private set; } = false;
 
         public MainWindow()
         {
@@ -73,11 +76,15 @@ namespace OverlayImageForWindows
             MainVideo.MediaFailed += MediaElement_MediaFailed;
             RenderOptions.SetBitmapScalingMode(MainVideo, BitmapScalingMode.HighQuality);
             FileSystem.Init(this);
+            isVideo = FileSystem.config.IsVideo;
+            MainVideo.Opacity = FileSystem.config.ImageOpacity;
+            MainImage.Opacity = FileSystem.config.ImageOpacity;
         }
 
         private void MediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e)
         {
-            System.Windows.MessageBox.Show($"Ошибка воспроизведения: {e.ErrorException.Message}");
+            System.Windows.MessageBox.Show($"Ошибка воспроизведения: {e.ErrorException.Message}\n Название видео - {MainVideo.Source.LocalPath.GetFileName()}");
+           
         }
 
         private void DroppedImage_DragEnter(object sender, System.Windows.DragEventArgs e)
@@ -217,18 +224,6 @@ namespace OverlayImageForWindows
         {
             FileSystem.Save(this);
             base.OnClosing(e);
-        } 
-
-        private void HistoryCheck_Click(object sender, RoutedEventArgs e)
-        {
-            try
-            {
-                Process.Start("notepad.exe", FileSystem.LogPath);
-            }
-            catch (Exception ex)
-            {
-                new Log($"ошибка истории - {ex.Message}");
-            }
         }
 
         private void Copy_Click(object sender, RoutedEventArgs e)
@@ -237,20 +232,20 @@ namespace OverlayImageForWindows
             {
                 try
                 {
-                    using (System.Drawing.Image image = System.Drawing.Image.FromFile((MainImage.Source as BitmapImage).UriSource?.AbsolutePath))
+                    using (System.Drawing.Image image = System.Drawing.Image.FromFile(FileSystem.ImagePath + (MainImage.Source as BitmapImage).UriSource?.AbsolutePath.Split('/').Last()))
                     {
                         System.Windows.Forms.Clipboard.SetImage(image);
                     }
                 }
                 catch (Exception ex)
                 {
-                    new Log("При попытке копирования произошла ошибка, возможно название файла написанно на русском, исправьте это.");
+                    new Log($"При попытке копирования произошла ошибка ({ex.Message}), возможно название файла написанно на русском, исправьте это.");
                 }
-                
             }
             else
             {
-                System.Windows.Forms.Clipboard.SetText(MainVideo.Source.OriginalString);
+                var name = ((MainVideo.Source).ToString().GetFileName());
+                System.Windows.Forms.Clipboard.SetImage(System.Drawing.Image.FromFile(FileSystem.ThumnailPath + name + "-thumbnail.png"));
             }
         }
 
@@ -274,6 +269,7 @@ namespace OverlayImageForWindows
             window.OnMediaPicked += (s,isVideo) =>
             {
                 var fileName = s.Split('_')[1];
+                this.isVideo = isVideo;
                 if (isVideo)
                 {
                     MainImage.Visibility = Visibility.Hidden;
@@ -295,6 +291,23 @@ namespace OverlayImageForWindows
         {
             MainVideo.Position = TimeSpan.Zero;
             MainVideo.Play();
+        }
+
+        private void MegaSettings_Click(object sender, RoutedEventArgs e)
+        {
+            if (isSettingsOpened) return;
+            isSettingsOpened = true;
+            var window = new SettingsWindow();
+            window.Show();
+            window.OnOpacityChanged += x =>
+            {
+                MainVideo.Opacity = x;
+                MainImage.Opacity = x;
+            };
+            window.Closing += delegate
+            {
+                isSettingsOpened = false;
+            };
         }
     }
 }

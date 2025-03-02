@@ -21,13 +21,13 @@ namespace OverlayImageForWindows.Models.Data
             FullName = fullName;
         }
 
-        public void CreateThumbNail()
+        public string CreateThumbNail()
         {
             string thumbnailPath = Path.Combine(FileSystem.ThumnailPath, $"{FullName.GetFileName2()}-thumbnail.png");
             if (File.Exists(thumbnailPath))
             {
                 ThumNailPath = thumbnailPath;
-                return;
+                return thumbnailPath;
             }
 
             var inputFile = new MediaFile { Filename = FullName };
@@ -35,9 +35,10 @@ namespace OverlayImageForWindows.Models.Data
 
             using (var engine = new Engine())
             {
-                engine.GetThumbnail(inputFile, outputFile, new MediaToolkit.Options.ConversionOptions { Seek = TimeSpan.FromSeconds(1) });
+                engine.GetThumbnail(inputFile, outputFile, new MediaToolkit.Options.ConversionOptions { });
             }
-            ThumNailPath = $"{FullName.GetFileName2()}-thumbnail.png";
+            ThumNailPath = Path.Combine(FileSystem.ThumnailPath, $"{FullName.GetFileName2()}-thumbnail.png");
+            return ThumNailPath;   
         }
     }
 }

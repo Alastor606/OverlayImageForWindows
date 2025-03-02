@@ -5,6 +5,8 @@ using System.IO;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Forms;
+using System.Windows.Media.Imaging;
 
 namespace OverlayImageForWindows.Views
 {
@@ -19,24 +21,29 @@ namespace OverlayImageForWindows.Views
             LoadImages();
         }
 
+        private Image CreateImage(string name)
+        {
+            return new Image()
+            {
+                Width = 100,
+                Height = 150,
+                Name = "A_" + name,
+                Margin = new Thickness(10, 0, 0, 0)
+            };
+        }
+
         private async void LoadImages()
         {
             ImageSW.Visibility = Visibility.Visible;
             VideoSW.Visibility = Visibility.Hidden;
             if (ImageGrid.Children.Count > 0) return;
-
-            foreach (var image in FileSystem.GetImages())
+            var images = FileSystem.GetImages();
+            foreach (var image in images)
             {
                 Image img = null;
                 try
                 {
-                    img = new Image()
-                    {
-                        Width = 100,
-                        Height = 150,
-                        Name = "A_" + image.Name.Split('.')[0],
-                        Margin = new Thickness(10, 0, 0, 0)
-                    };
+                    img = CreateImage(image.Name.Split('.')[0]);
                     img.SetImage(image.Name);
                 }
                 catch (Exception ex)
@@ -45,13 +52,7 @@ namespace OverlayImageForWindows.Views
                     var name = "TgFileName.png".GetNextName(FileSystem.ImagePath);
                     File.Copy(image.FullName, FileSystem.ImagePath + name);
                     File.Delete(image.FullName);
-                    img = new Image()
-                    {
-                        Width = 100,
-                        Height = 150,
-                        Name = "A_" + name.Split('.')[0],
-                        Margin = new Thickness(10, 0, 0, 0)
-                    };
+                    img = CreateImage(name.Split('.')[0]);
                     img.SetImage(name);
                 }
                 img.MouseLeftButtonDown += delegate
@@ -60,7 +61,7 @@ namespace OverlayImageForWindows.Views
                     this.Close();
                 };
                 ImageGrid.Children.Add(img);
-                await Task.Delay(90);
+                await Task.Yield();
             }
         }
 
@@ -76,36 +77,18 @@ namespace OverlayImageForWindows.Views
                 {
                     Image img = null;
                     string fullName = string.Empty;
-                    try
+                    string name = item.Name.Split('.')[0];
+
+                    if (!item.Name.Contains("TgFileName"))
                     {
-                        img = new Image()
-                        {
-                            Width = 100,
-                            Height = 150,
-                            Name = "A_" + item.Name.Split('.')[0],
-                            Margin = new Thickness(10, 0, 0, 0)
-                        };
-                        fullName = item.FullName;
+                        fullName = RenameVideo(item.FullName);
+                        name = fullName.Split('.')[0];
+                        
                     }
-                    catch (Exception ex)
-                    {
-                        new Log("При попытке задать имя видео произошла ошибка - " + ex.Message);
+                    else fullName = item.FullName;
 
-                        var name = "TgFileName.mp4".GetNextName(FileSystem.VideoPath);
-
-                        File.Copy(item.FullName, FileSystem.VideoPath + name);
-                        File.Delete(item.FullName);
-                        File.Delete(item.FullName + "-thumbnail.png");
-                        img = new Image()
-                        {
-                            Width = 100,
-                            Height = 150,
-                            Name = "A_" + name.Split('.')[0],
-                            Margin = new Thickness(10, 0, 0, 0)
-                        };
-                        fullName = FileSystem.VideoPath + name;
-                    }
-
+                    img = CreateImage(name);
+                    
                     var video = FileSystem.CreateVideo(fullName);
                     img.SetVideoThumb(video.ThumNailPath);
                     img.MouseLeftButtonDown += delegate
@@ -118,9 +101,19 @@ namespace OverlayImageForWindows.Views
             }
             catch (Exception ex)
             {
-                new Log(ex.Message);
+                new Log("При отображении превью для видео произошла ошибка - " + ex.Message);
             }
             
+        }
+
+        private string RenameVideo(string fullname)
+        {
+            var name = "TgFileName.mp4".GetNextName(FileSystem.VideoPath);
+
+            File.Copy(fullname, FileSystem.VideoPath + name);
+            File.Delete(fullname);
+            File.Delete(fullname + "-thumbnail.png");
+            return FileSystem.VideoPath + name;
         }
 
         private void Images_Click(object sender, RoutedEventArgs e)
@@ -139,6 +132,47 @@ namespace OverlayImageForWindows.Views
             Videos.IsEnabled = false;
             Images.IsEnabled = true;
             LoadVideos();
+        }
+
+        private void AddFileButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            string res = string.Empty, folder;
+            if (openFileDialog.ShowDialog() != System.Windows.Forms.DialogResult.OK) return;
+
+            if(openFileDialog.FileName.Contains(FileSystem.ImagePath) || openFileDialog.FileName.Contains(FileSystem.ThumnailPath) || openFileDialog.FileName.Contains(FileSystem.VideoPath))
+            {
+                System.Windows.MessageBox.Show("Вы пытаетесь добавить файл из папки приложения, выберите другой.");
+                return;
+            }
+
+            if (!isVideoLoaded)
+            {
+                openFileDialog.Filter = "Image Files|*.jpg;*.jpeg;*.png;";
+                res = ".png";
+                folder = FileSystem.ImagePath;
+            }
+            else
+            {
+                openFileDialog.Filter = "Video Files|*.mp4";
+                res = ".mp4";
+                folder = FileSystem.VideoPath;
+            }
+            var name = Path.Combine(folder + ("TgFIleName" + res).GetNextName(folder));
+           
+            
+            File.Copy(openFileDialog.FileName, name);
+            if (isVideoLoaded)
+            {
+                FileSystem.CreateVideo(name);
+                VideoGrid.Children.Clear();
+                LoadVideos();
+            }
+            else
+            {
+                ImageGrid.Children.Clear();
+                LoadImages();
+            }
         }
     }
 }
