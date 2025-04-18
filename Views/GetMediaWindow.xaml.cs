@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Forms;
-using System.Windows.Media.Imaging;
 
 namespace OverlayImageForWindows.Views
 {
@@ -158,7 +157,7 @@ namespace OverlayImageForWindows.Views
                 res = ".mp4";
                 folder = FileSystem.VideoPath;
             }
-            var name = Path.Combine(folder + ("TgFIleName" + res).GetNextName(folder));
+            var name = Path.Combine(folder + ("TgFileName" + res).GetNextName(folder));
            
             
             File.Copy(openFileDialog.FileName, name);

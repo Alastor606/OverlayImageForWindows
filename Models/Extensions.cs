@@ -75,9 +75,9 @@ namespace OverlayImageForWindows.Models
         public static string GetImageType(this string fileName, string directoryPath)
         {
             var info = new DirectoryInfo(directoryPath).GetFiles();
-            var img = info.FirstOrDefault(x => x.Name.Contains(fileName));
+            var img = info.FirstOrDefault(x => x.Name.Split('.')[0] == fileName);
             if (img == default) return string.Empty;
-            return img.FullName;
+            return img.Name;
         }
     }
 }

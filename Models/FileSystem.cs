@@ -1,8 +1,12 @@
 ﻿using Newtonsoft.Json;
 using OverlayImageForWindows.Models.Data;
+using OverlayImageForWindows.Models.Data.TelegramData;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Windows;
 
 namespace OverlayImageForWindows.Models
@@ -15,10 +19,12 @@ namespace OverlayImageForWindows.Models
             LogPath = MainPath + "Logs.txt",
             DataFile = Environment.GetFolderPath(Environment.SpecialFolder.MyDocuments) + "\\ImagingConfig.json",
             VideoPath = MainPath + "Videos\\",
-            ThumnailPath = VideoPath + "Thumbnails\\";
+            ThumnailPath = VideoPath + "Thumbnails\\",
+            UsersPath = MainPath + "users.json";
 
         public static Config config;
         public static UserInfo info;
+        public static List<TelegramUser> users = new List<TelegramUser>();
         public static void Init(MainWindow w)
         {
             Directory.CreateDirectory(MainPath);
@@ -55,7 +61,16 @@ namespace OverlayImageForWindows.Models
                     MessageBox.Show($"Пожалуйста проверьте файл '{DataFile}' на целостность введенных данных");
                     throw new Exception();
                 }
-                
+            }
+            if (!File.Exists(UsersPath))
+            {
+                File.Create(UsersPath);
+            }
+            else
+            {
+                new Log("File doesnd exists");
+                users = JsonConvert.DeserializeObject<List<TelegramUser>>(File.ReadAllText(UsersPath));
+                if (users == null) users = new List<TelegramUser>();
             }
             config = JsonConvert.DeserializeObject<Config>(File.ReadAllText(CFG));
         }
@@ -88,11 +103,16 @@ namespace OverlayImageForWindows.Models
         public static List<FileInfo> GetImages()
         {
             var result = new List<FileInfo>();
+            var sb = new StringBuilder();
             foreach(var item in new DirectoryInfo(ImagePath).GetFiles())
             {
-                result.Add(item);
+                if (item.FullName.IsImage())
+                {
+                    sb.Append(item.Name + "\n");
+                    result.Add(item);
+                }
             }
-            return result;
+            return result.OrderBy(x=>x.Name.Length).ToList();
         }
 
         public static OverlayVideo CreateVideo(string videoPath)
@@ -100,6 +120,30 @@ namespace OverlayImageForWindows.Models
             var video = new OverlayVideo(videoPath);
             video.CreateThumbNail();
             return video;
+        }
+
+        public static void CreateUser(long id)
+        {
+            users.Add(new TelegramUser() { TelegramId = id });
+            File.WriteAllText(UsersPath, JsonConvert.SerializeObject(users));
+        }
+
+        public static void SaveUsers() =>
+             File.WriteAllText(UsersPath, JsonConvert.SerializeObject(users));
+
+        private static bool IsImage(this string filePath)
+        {
+            try
+            {
+                using (var image = Image.FromFile(filePath))
+                {
+                    return true;
+                }
+            }
+            catch (Exception)
+            {
+                return false;
+            }
         }
     }
 }

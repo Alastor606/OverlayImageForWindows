@@ -3,8 +3,6 @@ using OverlayImageForWindows.Models.Data;
 using OverlayImageForWindows.Views;
 using System;
 using System.ComponentModel;
-using System.Diagnostics;
-using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices;
 using System.Windows;
@@ -32,7 +30,6 @@ namespace OverlayImageForWindows
         public MainWindow()
         {
             InitializeComponent();
-            
             MainImage.MouseLeftButtonDown += delegate
             {
                 this.DragMove();
@@ -81,11 +78,9 @@ namespace OverlayImageForWindows
             MainImage.Opacity = FileSystem.config.ImageOpacity;
         }
 
-        private void MediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e)
-        {
+        private void MediaElement_MediaFailed(object sender, ExceptionRoutedEventArgs e) =>
             System.Windows.MessageBox.Show($"Ошибка воспроизведения: {e.ErrorException.Message}\n Название видео - {MainVideo.Source.LocalPath.GetFileName()}");
-           
-        }
+        
 
         private void DroppedImage_DragEnter(object sender, System.Windows.DragEventArgs e)
         {
@@ -281,8 +276,9 @@ namespace OverlayImageForWindows
                 {
                     MainImage.Visibility = Visibility.Visible;
                     MainVideo.Visibility = Visibility.Hidden;
+
                     var name = fileName.GetImageType(FileSystem.ImagePath);
-                    MainImage.SetImage(name.GetFileName2());
+                    MainImage.SetImage(name);
                 }
             };
         }
@@ -303,6 +299,10 @@ namespace OverlayImageForWindows
             {
                 MainVideo.Opacity = x;
                 MainImage.Opacity = x;
+            };
+            window.OnVolumeChanged += x =>
+            {
+                MainVideo.Volume = x;
             };
             window.Closing += delegate
             {

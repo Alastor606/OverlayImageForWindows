@@ -1,0 +1,47 @@
+﻿<Page x:Class="OverlayImageForWindows.Views.SettingsMainPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:OverlayImageForWindows.Views"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingsMainPage" Background="White">
+
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Button Name="HistoryCheck" Click="HistoryCheck_Click" Width="150" Height="35" ToolTip="Открыывает файл с логами приложения и бота">Просмотр логов</Button>
+        <Button Grid.Row="0" Grid.Column="1" Width="150" Height="35" Name="BotCheckButton" Click="BotCheckButton_Click" ToolTip="Отправляет сообщение пользователю с айди, указанным в поле &quot;ваш телеграм айди&quot; если он уже отправлял боту хотябы одно сообщение.">Проверка бота</Button>
+
+        <CheckBox Grid.Row="1" Grid.ColumnSpan="2" Name="AcceptOtherFiles" Height="25" Margin="10,0" ToolTip="Если отключено то только пользователь, чем телеграм айди указан в поле &quot;
+           ваш телеграм айди&quot;
+           сможет отправлять вам файлы."
+           HorizontalAlignment="Center">Разрешить другим пользователям добавлять файлы</CheckBox>
+
+        <Button Grid.Row="2" Grid.ColumnSpan="2" Width="150" Height="35" Name="UsersButton" Click="UsersButton_Click">Список пользователей</Button>
+
+        <TextBlock Grid.Row="3" TextAlignment="Center" VerticalAlignment="Center">Громкость видео</TextBlock>
+        <Slider Name="VideoVolume" Grid.Row="3" Grid.Column="1" Maximum="1" Minimum="0" Margin="0,10,0,10" Width="150"/>
+
+        <Slider Name="ImageOpacity" Grid.Row="4" Grid.Column="1" Maximum="1" Minimum="0.1" Margin="0,10,0,10" Width="150"/>
+        <TextBlock Grid.Row="4" TextAlignment="Center" VerticalAlignment="Center">Прозрачность изображения</TextBlock>
+
+        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Grid.Row="5" Cursor="Hand" Name="IdText">Ваш телеграм айди</TextBlock>
+        <TextBox Width="150" Height="25" Name="IdInput" Grid.Row="5" Grid.Column="1"></TextBox>
+
+        <TextBlock TextAlignment="Center" VerticalAlignment="Center" Grid.Row="6" Cursor="Hand" Name="TokenText">Токен бота</TextBlock>
+        <TextBox Width="150" Height="25" Name="TokenInput" Grid.Row="6" Grid.Column="1"></TextBox>
+    </Grid>
+</Page>

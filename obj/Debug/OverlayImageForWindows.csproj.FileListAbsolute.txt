@@ -179,3 +179,17 @@ C:\Users\honor magicbook\Desktop\OverlayImageForWindows\obj\Debug\OverlayImageFo
 C:\Users\honor magicbook\Desktop\OverlayImageForWindows\obj\Debug\OverlayI.AD7C7720.Up2Date
 C:\Users\honor magicbook\Desktop\OverlayImageForWindows\obj\Debug\OverlayImageForWindows.exe
 C:\Users\honor magicbook\Desktop\OverlayImageForWindows\obj\Debug\OverlayImageForWindows.pdb
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\SettingsWindow.g.cs
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\SettingsWindow.baml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\SettingsMainPage.g.cs
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\SettingsMainPage.baml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\EntityFramework.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\EntityFramework.SqlServer.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\System.Data.SQLite.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\System.Data.SQLite.EF6.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\System.Data.SQLite.Linq.dll
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\EntityFramework.xml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\EntityFramework.SqlServer.xml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\bin\Debug\System.Data.SQLite.xml
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\UsersPage.g.cs
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\Views\UsersPage.baml

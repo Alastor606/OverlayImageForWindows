@@ -1,5 +1,6 @@
 ﻿using OverlayImageForWindows.Models.Data;
 using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Telegram.Bot;
@@ -15,6 +16,7 @@ namespace OverlayImageForWindows.Models.TG
 
         public static void Init()
         {
+            if (IsConnected) return;
             try
             {
                 client = new TelegramBotClient(FileSystem.info.Token);
@@ -30,7 +32,8 @@ namespace OverlayImageForWindows.Models.TG
 
         private static async Task Error(ITelegramBotClient client, Exception exception, HandleErrorSource source, CancellationToken token)
         {
-            new Log("При работе бота произошла ошибка - " + exception.Message);
+            new Log("Telegram bot exception : " + exception.Message);
+            return;
         }
 
         private static async Task GetUpdates(ITelegramBotClient client, Update update, CancellationToken token)
@@ -39,12 +42,24 @@ namespace OverlayImageForWindows.Models.TG
             var user = update.Message.Chat.Id;
             var type = update.Message.Type;
             var name = update.Message.Chat.FirstName +" " + update.Message.Chat.LastName;
+            new Log("message");
             if(!FileSystem.info.AcceptTPUFiles && user != FileSystem.info.TelegramID)
             {
                 await client.SendMessage(user, "Автор запретил другим пользователям добавлять файлы");
                 new Log($"Пользователь {name}(id = {user}) пытался добавить файл.");
                 return;
             }
+            if(FileSystem.users != null && FileSystem.users.Count > 0)
+            {
+                var us = FileSystem.users.FirstOrDefault(x => x.TelegramId == user);
+                if (us != null && us.InBlackList)
+                {
+                    await client.SendMessage(user, "Доступ временно ограничен.");
+                    new Log($"Пользователь {name}(id = {user}) пытался добавить файл.");
+                    return;
+                }
+            }
+            
             if (type != Telegram.Bot.Types.Enums.MessageType.Text && type != Telegram.Bot.Types.Enums.MessageType.Photo && type != Telegram.Bot.Types.Enums.MessageType.Video)
             {
                 await client.SendMessage(user, "Неподдерживаемый формат сообщения!");
@@ -89,9 +104,16 @@ namespace OverlayImageForWindows.Models.TG
             {
                 if (messge == "/start")
                 {
-                    await client.SendMessage(user, "С добрым утрам");
-                    await client.SendMessage(FileSystem.info.TelegramID, $"Новый пользователь - {name}(id = {user}))");
-                    new Log($"Новый пользователь -  {name}(id = {user})");
+                    var us = FileSystem.users.FirstOrDefault(x => x.TelegramId == user);
+                    if (us == null)
+                    {
+                        await client.SendMessage(user, "Чтобы отправить пользователю картинку или изображение просто отправьте его в чат, и ваш ДРУК получит его на свой компьютер.");
+                        await client.SendMessage(FileSystem.info.TelegramID, $"Новый пользователь - {name}(id = {user}))");
+                        new Log($"Новый пользователь -  {name}(id = {user})");
+                        FileSystem.CreateUser(user);
+                        return;
+                    }
+                    await client.SendMessage(user, "Снова здравстсвуйте");
                 }
                 else if (messge.Contains("pin"))
                 {

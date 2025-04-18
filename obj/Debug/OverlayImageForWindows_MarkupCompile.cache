@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-C:\Users\honor magicbook\Desktop\OverlayImageForWindows\obj\Debug\
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\obj\Debug\
 OverlayImageForWindows
 none
 false
 DEBUG;TRACE
-C:\Users\honor magicbook\Desktop\OverlayImageForWindows\App.xaml
-3-1422239102
+C:\Users\Main\Desktop\Scripts\OverlayImageForWindows\App.xaml
+5-1975811560
 
-171463991061
-391365411525
-MainWindow.xaml;Views\GetMediaWindow.xaml;Views\SettingsWindow.xaml;
+21702366689
+44-929911019
+MainWindow.xaml;Views\GetMediaWindow.xaml;Views\SettingsMainPage.xaml;Views\SettingsWindow.xaml;Views\UsersPage.xaml;
 
 False
 
